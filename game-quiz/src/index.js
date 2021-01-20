@@ -64,16 +64,25 @@ function getTurnData(authors) {
 }
 
 const state = {
-  turnData: getTurnData(authors)
+  turnData: getTurnData(authors),
+  highlight: ''
 };
 
-ReactDOM.render(
-  <React.StrictMode>
-    <GameQuiz {...state}/>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+function onAnswerSelected(answer) {
+  const isCorrect = state.turnData.author.books.some((book) => book === answer);
+  state.highlight = isCorrect ? 'correct' : 'wrong';
+  render();
+}
 
+function render() {
+  ReactDOM.render(
+    <React.StrictMode>
+      <GameQuiz {...state} onAnswerSelected={onAnswerSelected}/>
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+}
+render();
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
