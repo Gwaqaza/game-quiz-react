@@ -21,14 +21,14 @@ const state = {
 describe("Game Quiz", () => {
   it("renders without crashing", () => {
     const div = document.createElement("div");
-    ReactDOM.render(<GameQuiz {...state} onAnswerSelected={() => {}}/>, div);
+    ReactDOM.render(<GameQuiz {...state} onAnswerSelected={() => {}} />, div);
   });
 
   describe("When no answer has been selected", () => {
     let wrapper;
 
     beforeAll(() => {
-      wrapper = mount(<GameQuiz {...state} onAnswerSelected={() => {}}/>, div);
+      wrapper = mount(<GameQuiz {...state} onAnswerSelected={() => {}} />);
     });
 
     it("should not have a background color", () => {
@@ -40,7 +40,7 @@ describe("Game Quiz", () => {
     let wrapper;
 
     beforeAll(() => {
-      wrapper = mount(<GameQuiz {...Object.assign({}, state, { highlight: 'wrong'})} onAnswerSelected={() => {}}/>, div);
+      wrapper = mount(<GameQuiz {...Object.assign({}, state, { highlight: 'wrong'})} onAnswerSelected={() => {}} />);
     });
 
     it("should have a red background color", () => {
@@ -52,7 +52,7 @@ describe("Game Quiz", () => {
     let wrapper;
 
     beforeAll(() => {
-      wrapper = mount(<GameQuiz {...Object.assign({}, state, { highlight: 'correct'})} onAnswerSelected={() => {}}/>, div);
+      wrapper = mount(<GameQuiz {...Object.assign({}, state, { highlight: 'correct'})} onAnswerSelected={() => {}} />);
     });
 
     it("should have a green background color", () => {
@@ -65,7 +65,7 @@ describe("Game Quiz", () => {
     const handleAnswerSelected = jest.fn();
 
     beforeAll(() => {
-      wrapper = mount(<GameQuiz {...state} onAnswerSelected={handleAnswerSelected}/>, div);
+      wrapper = mount(<GameQuiz {...state} onAnswerSelected={handleAnswerSelected} />);
       wrapper.find('.answer').first().simulate('click');
     });
 
