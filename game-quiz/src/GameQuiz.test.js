@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import GameQuiz from './GameQuiz';
 import Enzyme, { mount, shallow, render } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from 'enzyme-adapter-react-17';
 Enzyme.configure({ adapter: new Adapter() });
 
 const state = {
@@ -28,7 +28,7 @@ describe("Game Quiz", () => {
     let wrapper;
 
     beforeAll(() => {
-      wrapper = mount(<GameQuiz {...state} onAnswerSelected={() => {}}/>, div)
+      wrapper = mount(<GameQuiz {...state} onAnswerSelected={() => {}}/>, div);
     });
 
     it("should not have a background color", () => {
@@ -40,7 +40,7 @@ describe("Game Quiz", () => {
     let wrapper;
 
     beforeAll(() => {
-      wrapper = mount(<GameQuiz {...Object.assign({}, state, { highlight: 'wrong'})} onAnswerSelected={() => {}}/>, div)
+      wrapper = mount(<GameQuiz {...Object.assign({}, state, { highlight: 'wrong'})} onAnswerSelected={() => {}}/>, div);
     });
 
     it("should have a red background color", () => {
@@ -52,11 +52,25 @@ describe("Game Quiz", () => {
     let wrapper;
 
     beforeAll(() => {
-      wrapper = mount(<GameQuiz {...Object.assign({}, state, { highlight: 'correct'})} onAnswerSelected={() => {}}/>, div)
+      wrapper = mount(<GameQuiz {...Object.assign({}, state, { highlight: 'correct'})} onAnswerSelected={() => {}}/>, div);
     });
 
     it("should have a green background color", () => {
       expect(wrapper.find("div.row.turn").props().style.backgroundColor).toBe('green');
+    });
+  });
+
+  describe("When first answer is selected", () => {
+    let wrapper;
+    const handleAnswerSelected = jest.fn();
+
+    beforeAll(() => {
+      wrapper = mount(<GameQuiz {...state} onAnswerSelected={handleAnswerSelected}/>, div);
+      wrapper.find('.answer').first().simulate('click');
+    });
+
+    it("onAnswerSelected should be called", () => {
+      expect(handleAnswerSelected).toHaveBeenCalled();
     });
   });
 });
