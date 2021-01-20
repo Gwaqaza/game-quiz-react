@@ -72,5 +72,9 @@ describe("Game Quiz", () => {
     it("onAnswerSelected should be called", () => {
       expect(handleAnswerSelected).toHaveBeenCalled();
     });
+
+    it("should receive The Shining", () => {
+      expect(handleAnswerSelected).toHaveBeenCalledWith('The Shining');
+    });
   });
 });
