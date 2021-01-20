@@ -26,6 +26,7 @@ describe("Game Quiz", () => {
 
   describe("When no answer has been selected", () => {
     let wrapper;
+    
     beforeAll(() => {
       wrapper = mount(<GameQuiz {...state} onAnswerSelected={() => {}}/>, div)
     });
@@ -35,4 +36,15 @@ describe("Game Quiz", () => {
     });
   });
 
+  describe("When wrong answer has been selected", () => {
+    let wrapper;
+
+    beforeAll(() => {
+      wrapper = mount(<GameQuiz {...Object.assign({}, state, { highlight: 'wrong'})} onAnswerSelected={() => {}}/>, div)
+    });
+
+    it("should have a red background color", () => {
+      expect(wrapper.find("div.row.turn").props().style.backgroundColor).toBe('red');
+    });
+  });
 });
