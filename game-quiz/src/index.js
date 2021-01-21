@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { shuffle, sample } from 'underscore';
+
 import './index.css';
 import GameQuiz from './GameQuiz';
-import { shuffle, sample } from 'underscore';
 import reportWebVitals from './reportWebVitals';
 
 const authors = [
@@ -74,10 +76,16 @@ function onAnswerSelected(answer) {
   render();
 }
 
+function App() {
+  return <GameQuiz { ...state } onAnswerSelected={ onAnswerSelected }/>
+}
+
 function render() {
   ReactDOM.render(
     <React.StrictMode>
-      <GameQuiz {...state} onAnswerSelected={onAnswerSelected}/>
+      <BrowserRouter>
+        <Route exact path="/" component={ App } />
+      </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
   );
