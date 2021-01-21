@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GameQuiz from './GameQuiz';
 import Enzyme, { mount, shallow, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-17';
+
+import GameQuiz from './GameQuiz';
 Enzyme.configure({ adapter: new Adapter() });
+
 
 const state = {
   turnData: {
@@ -21,14 +23,14 @@ const state = {
 describe("Game Quiz", () => {
   it("renders without crashing", () => {
     const div = document.createElement("div");
-    ReactDOM.render(<GameQuiz {...state} onAnswerSelected={() => {}} />, div);
+    ReactDOM.render(<GameQuiz { ...state } onAnswerSelected={() => {}} />, div);
   });
 
   describe("When no answer has been selected", () => {
     let wrapper;
 
     beforeAll(() => {
-      wrapper = mount(<GameQuiz {...state} onAnswerSelected={() => {}} />);
+      wrapper = mount(<GameQuiz { ...state } onAnswerSelected={() => {}} />);
     });
 
     it("should not have a background color", () => {
@@ -40,7 +42,7 @@ describe("Game Quiz", () => {
     let wrapper;
 
     beforeAll(() => {
-      wrapper = mount(<GameQuiz {...Object.assign({}, state, { highlight: 'wrong'})} onAnswerSelected={() => {}} />);
+      wrapper = mount(<GameQuiz { ...Object.assign({}, state, { highlight: 'wrong'}) } onAnswerSelected={() => {}} />);
     });
 
     it("should have a red background color", () => {
@@ -52,7 +54,7 @@ describe("Game Quiz", () => {
     let wrapper;
 
     beforeAll(() => {
-      wrapper = mount(<GameQuiz {...Object.assign({}, state, { highlight: 'correct'})} onAnswerSelected={() => {}} />);
+      wrapper = mount(<GameQuiz { ...Object.assign({}, state, { highlight: 'correct'}) } onAnswerSelected={() => {}} />);
     });
 
     it("should have a green background color", () => {
@@ -65,7 +67,7 @@ describe("Game Quiz", () => {
     const handleAnswerSelected = jest.fn();
 
     beforeAll(() => {
-      wrapper = mount(<GameQuiz {...state} onAnswerSelected={handleAnswerSelected} />);
+      wrapper = mount(<GameQuiz { ...state } onAnswerSelected={ handleAnswerSelected } />);
       wrapper.find('.answer').first().simulate('click');
     });
 
