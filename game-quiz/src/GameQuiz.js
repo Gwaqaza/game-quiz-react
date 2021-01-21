@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types'
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import './App.css';
 
 function Hero() {
   return(
@@ -14,7 +16,7 @@ function Hero() {
   );
 }
 
-function Turn({author, books, highlight, onAnswerSelected}) {
+function Turn({ author, books, highlight, onAnswerSelected }) {
   function highlightBgColor(highlight) {
     const mapping = {
       none: '',
@@ -24,12 +26,12 @@ function Turn({author, books, highlight, onAnswerSelected}) {
     return mapping[highlight];
   }
   return(
-    <div className="row turn" style={{backgroundColor: highlightBgColor(highlight)}}>
+    <div className="row turn" style={ { backgroundColor: highlightBgColor(highlight) } }>
       <div className="col-4 offset-1">
-        <img src={author.imageUrl} className="authimage" alt="author"/>
+        <img src={ author.imageUrl } className="authimage" alt="author"/>
       </div>
       <div className="col-6">
-        {books.map((title) => <Book title={title} key={title} onClick={onAnswerSelected}/>)}
+        { books.map((title) => <Book title={ title } key={ title } onClick={ onAnswerSelected }/>) }
       </div>
     </div>
   );
@@ -64,19 +66,19 @@ function Footer() {
   );
 }
 
-function Book({title, onClick}) {
+function Book({ title, onClick }) {
   return(
-    <div className="answer" onClick={() => {onClick(title)}}>
-      <h4>{title}</h4>
+    <div className="answer" onClick={ () => { onClick(title) } }>
+      <h4>{ title }</h4>
     </div>
   );
 }
 
-function GameQuiz({turnData, highlight, onAnswerSelected}) {
+function GameQuiz({ turnData, highlight, onAnswerSelected }) {
   return (
     <div className="container-fluid">
       <Hero />
-      <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected}/>
+      <Turn { ...turnData } highlight={ highlight } onAnswerSelected={ onAnswerSelected }/>
       <Continue />
       <Footer />
     </div>
