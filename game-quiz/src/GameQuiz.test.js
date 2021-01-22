@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Enzyme, { mount, shallow, render } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-17';
+import Adapter from 'enzyme-adapter-react-16';
 
 import GameQuiz from './GameQuiz';
 Enzyme.configure({ adapter: new Adapter() });
