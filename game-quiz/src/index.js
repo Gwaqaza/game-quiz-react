@@ -76,6 +76,13 @@ function onAnswerSelected(answer) {
   render();
 }
 
+function AddAuthorForm({ match }) {
+  return <div>
+    <h1>Add Author</h1>
+    <p>{JSON.stringify(match)}</p>
+  </div>
+}
+
 function App() {
   return <GameQuiz { ...state } onAnswerSelected={ onAnswerSelected }/>
 }
@@ -84,7 +91,10 @@ function render() {
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
+      <React.Fragment>
         <Route exact path="/" component={ App } />
+        <Route exact path="/add" component={ AddAuthorForm } />
+      </React.Fragment>
       </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
