@@ -5,6 +5,7 @@ import { shuffle, sample } from 'underscore';
 
 import './index.css';
 import GameQuiz from './GameQuiz';
+import AddAuthorForm from './AddAuthorForm';
 import reportWebVitals from './reportWebVitals';
 
 const authors = [
@@ -76,15 +77,14 @@ function onAnswerSelected(answer) {
   render();
 }
 
-function AddAuthorForm({ match }) {
-  return <div>
-    <h1>Add Author</h1>
-    <p>{JSON.stringify(match)}</p>
-  </div>
-}
-
 function App() {
   return <GameQuiz { ...state } onAnswerSelected={ onAnswerSelected }/>
+}
+
+function AuthorWrapper() {
+  return <AddAuthorForm onAddAuthor={(author) => {
+    authors.push(author);
+  }} />;
 }
 
 function render() {
@@ -93,7 +93,7 @@ function render() {
       <BrowserRouter>
       <React.Fragment>
         <Route exact path="/" component={ App } />
-        <Route exact path="/add" component={ AddAuthorForm } />
+        <Route exact path="/add" component={ AuthorWrapper } />
       </React.Fragment>
       </BrowserRouter>
     </React.StrictMode>,
