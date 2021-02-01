@@ -47,9 +47,16 @@ Turn.propTypes = {
   onAnswerSelected: PropTypes.func.isRequired
 }
 
-function Continue() {
+function Continue({ show, onContinue }) {
   return(
-    <div></div>
+    <div className="row continue">
+      {
+        show
+        ? <div className="col-11">
+            <button className="btn btn-primary btn-lg float-right" onClick={ onContinue }>Continue</button>
+          </div>
+        : null }
+    </div>
   );
 }
 
@@ -74,12 +81,12 @@ function Book({ title, onClick }) {
   );
 }
 
-function GameQuiz({ turnData, highlight, onAnswerSelected }) {
+function GameQuiz({ turnData, highlight, onAnswerSelected, onContinue  }) {
   return (
     <div className="container-fluid">
       <Hero />
       <Turn { ...turnData } highlight={ highlight } onAnswerSelected={ onAnswerSelected }/>
-      <Continue />
+      <Continue show={ highlight === 'correct'} onContinue={ onContinue } />
       <p><Link to="/add">Add an author</Link></p>
       <Footer />
     </div>
