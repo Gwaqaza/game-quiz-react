@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, withRouter } from 'react-router-dom';
 import { shuffle, sample } from 'underscore';
 
 import './index.css';
@@ -66,10 +66,14 @@ function getTurnData(authors) {
   }
 }
 
-const state = {
-  turnData: getTurnData(authors),
-  highlight: ''
-};
+function resetState() {
+  return {
+    turnData: getTurnData(authors),
+    highlight: ''
+  };
+}
+
+let state = resetState();
 
 function onAnswerSelected(answer) {
   const isCorrect = state.turnData.author.books.some((book) => book === answer);
@@ -78,14 +82,21 @@ function onAnswerSelected(answer) {
 }
 
 function App() {
-  return <GameQuiz { ...state } onAnswerSelected={ onAnswerSelected }/>
+  return <GameQuiz { ...state } 
+    onAnswerSelected={ onAnswerSelected }
+    onContinue={() => {
+      state = resetState();
+      render();
+    }}/>
 }
 
-function AuthorWrapper() {
-  return <AddAuthorForm onAddAuthor={(author) => {
+const AuthorWrapper = withRouter(({ history }) =>
+  <AddAuthorForm onAddAuthor={(author) => {
     authors.push(author);
-  }} />;
-}
+    history.push('/');
+  }} />
+);
+
 
 function render() {
   ReactDOM.render(
